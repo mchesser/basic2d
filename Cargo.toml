@@ -1,0 +1,10 @@
+[package]
+
+name = "geometry"
+version = "0.0.1"
+authors = ["Michael Chesser"]
+
+[[lib]]
+
+name = "geometry"
+path = "src/lib.rs"
