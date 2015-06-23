@@ -20,13 +20,13 @@ impl<T> Deref for WrappingGrid<T> {
     type Target = Grid<T>;
 
     fn deref(&self) -> &Grid<T> {
-        &*self
+        &self.0
     }
 }
 
 impl<T> DerefMut for WrappingGrid<T> {
     fn deref_mut(&mut self) -> &mut Grid<T> {
-        &mut *self
+        &mut self.0
     }
 }
 
@@ -43,7 +43,7 @@ impl<T> Index<(i32, i32)> for WrappingGrid<T> {
             else { (self.height() as i32) + y % (self.height() as i32) }
         };
 
-        &(**self)[(wrapped_x as usize, wrapped_y as usize)]
+        &((**self)[(wrapped_x as usize, wrapped_y as usize)])
     }
 }
 
@@ -58,6 +58,6 @@ impl<T> IndexMut<(i32, i32)> for WrappingGrid<T> {
             else { (self.height() as i32) + y % (self.height() as i32) }
         };
 
-        &mut (**self)[(wrapped_x as usize, wrapped_y as usize)]
+        &mut ((**self)[(wrapped_x as usize, wrapped_y as usize)])
     }
 }
