@@ -11,31 +11,31 @@ pub struct Rect {
 }
 
 impl Rect {
-    /// Return the vector to the top-left corner of the rectangle 
+    /// Return the vector to the top-left corner of the rectangle
     #[inline]
     pub fn top_left(&self) -> Vec2<f32> {
         Vec2::new(self.top(), self.left())
     }
-    
-    /// Return the vector to the top-left corner of the rectangle 
+
+    /// Return the vector to the top-left corner of the rectangle
     #[inline]
     pub fn top_right(&self) -> Vec2<f32> {
         Vec2::new(self.x + self.width, self.y)
     }
 
-    /// Return the vector to the top-left corner of the rectangle 
+    /// Return the vector to the top-left corner of the rectangle
     #[inline]
     pub fn bottom_left(&self) -> Vec2<f32> {
         Vec2::new(self.x, self.y + self.height)
     }
 
-    /// Return the vector to the top-left corner of the rectangle 
+    /// Return the vector to the top-left corner of the rectangle
     #[inline]
     pub fn bottom_right(&self) -> Vec2<f32> {
         Vec2::new(self.x + self.width, self.y + self.height)
     }
 
-    /// Return the vector to the center of the rectangle 
+    /// Return the vector to the center of the rectangle
     #[inline]
     pub fn center(&self) -> Vec2<f32> {
         Vec2::new(self.x + self.width/2.0, self.y + self.height/2.0)

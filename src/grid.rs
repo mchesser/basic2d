@@ -18,7 +18,7 @@ impl<T> Grid<T> {
 			data: vec![elem; width * height],
 		}
 	}
-	
+
 	/// Construct a new grid filled with values specified by a generating function
 	#[inline]
     pub fn from_fn<F>(width: usize, height: usize, mut f: F) -> Grid<T>
@@ -30,7 +30,7 @@ impl<T> Grid<T> {
             data: (0..(width * height)).map(|i| f(i % width, i / width)).collect(),
         }
     }
-	
+
 	/// Returns the height of the grid
 	#[inline]
     pub fn height(&self) -> usize {
@@ -52,7 +52,7 @@ impl<T> Grid<T> {
 
     /// Returns an iterator over mutable references to the elements of the grid in
     /// the order: left-right, up-down
-	#[inline]	
+	#[inline]
     pub fn iter_mut(&mut self) -> slice::IterMut<T> {
         self.data.iter_mut()
     }
@@ -68,7 +68,7 @@ impl<T> Index<(usize, usize)> for Grid<T> {
 
 impl<T> IndexMut<(usize, usize)> for Grid<T> {
     fn index_mut(&mut self, (x, y): (usize, usize)) -> &mut T {
-        assert!(x < self.width && y < self.height);    
+        assert!(x < self.width && y < self.height);
         &mut self.data[x + y * self.width]
     }
 }

@@ -70,7 +70,7 @@ impl<T> Vec2<T> {
         self.x = self.x / len;
         self.y = self.y / len;
     }
-    
+
    /// Creates a new vector equal to the vector scaled by a scalar value
     #[inline]
     pub fn scale(&self, scalar: T) -> Vec2<T> where T: Copy + Mul<Output=T> {
@@ -83,7 +83,7 @@ impl<T> Vec2<T> {
         let len = self.length();
         self.scale(len)
     }
-    
+
     /// Rotates a vector by a specified angle
     #[inline]
     pub fn rotate(&mut self, angle: T) where T: Float {

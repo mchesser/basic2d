@@ -9,7 +9,7 @@ impl<T> WrappingGrid<T> {
     pub fn new(grid: Grid<T>) -> WrappingGrid<T> {
         WrappingGrid(grid)
     }
-    
+
     #[inline]
     pub fn inner(self) -> Grid<T> {
         self.0
