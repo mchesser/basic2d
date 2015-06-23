@@ -1,96 +1,91 @@
-//! Structures and functions for managing rectangles
-use vectors::Vec2;
-
-/// Get the minimum of two values
-fn min<T: PartialOrd + Clone>(n1: &T, n2: &T) -> T {
-    if n1 < n2 {
-        n1.clone()
-    }
-    else {
-        n2.clone()
-    }
-}
-
-/// Get the maximum of two values
-fn max<T: PartialOrd + Clone>(n1: &T, n2: &T) -> T {
-    if n1 > n2 {
-        n1.clone()
-    }
-    else {
-        n2.clone()
-    }
-}
+use std::cmp::{partial_min, partial_max};
+use super::Vec2;
 
 /// Rectangle structure
-pub struct Rect<T> {
-    pub x: T,
-    pub y: T,
-    pub width: T,
-    pub height: T
+#[derive(Copy, Clone, Debug)]
+pub struct Rect {
+    pub x: f32,
+    pub y: f32,
+    pub width: f32,
+    pub height: f32
 }
 
-impl<T: Num + PartialOrd + Clone> Rect<T> {
-    /// Gets the top left coordinate of the rectangle
-    pub fn top_left(&self) -> Vec2<T> {
-        [self.left(), self.top()]
+impl Rect {
+    /// Return the vector to the top-left corner of the rectangle 
+    #[inline]
+    pub fn top_left(&self) -> Vec2<f32> {
+        Vec2::new(self.top(), self.left())
+    }
+    
+    /// Return the vector to the top-left corner of the rectangle 
+    #[inline]
+    pub fn top_right(&self) -> Vec2<f32> {
+        Vec2::new(self.x + self.width, self.y)
     }
 
-    /// Gets the top right coordinate of the rectangle
-    pub fn top_right(&self) -> Vec2<T> {
-        [self.right(), self.top()]
+    /// Return the vector to the top-left corner of the rectangle 
+    #[inline]
+    pub fn bottom_left(&self) -> Vec2<f32> {
+        Vec2::new(self.x, self.y + self.height)
     }
 
-    /// Gets the bottom left coordinate of the rectangle
-    pub fn bottom_left(&self) -> Vec2<T> {
-        [self.left(), self.bottom()]
+    /// Return the vector to the top-left corner of the rectangle 
+    #[inline]
+    pub fn bottom_right(&self) -> Vec2<f32> {
+        Vec2::new(self.x + self.width, self.y + self.height)
     }
 
-    /// Gets the bottom right coordinate of the rectangle
-    pub fn bottom_right(&self) -> Vec2<T> {
-        [self.right(), self.bottom()]
+    /// Return the vector to the center of the rectangle 
+    #[inline]
+    pub fn center(&self) -> Vec2<f32> {
+        Vec2::new(self.x + self.width/2.0, self.y + self.height/2.0)
     }
 
-    /// Gets the x value of the left of the rectangle
-    pub fn left(&self) -> T {
-        self.x.clone()
+    /// Return the x coordinate of the left side of the rectangle
+    #[inline]
+    pub fn left(&self) -> f32 {
+        self.x
     }
 
-    /// Gets the x value of the right of the rectangle
-    pub fn right(&self) -> T {
-        self.x.clone() + self.width.clone()
+    /// Return the x coordinate of the right side of the rectangle
+    #[inline]
+    pub fn right(&self) -> f32 {
+        self.x + self.width
     }
 
-    /// Gets the y value of the top of the rectangle
-    pub fn top(&self) -> T {
-        self.y.clone()
+    /// Return the y coordinate of the top of the rectangle
+    #[inline]
+    pub fn top(&self) -> f32 {
+        self.y
     }
 
-    /// Gets the y value of the bottom of the rectangle
-    pub fn bottom(&self) -> T {
-        self.y.clone() + self.height.clone()
+    /// Return the y coordinate of the bottom of the rectangle
+    #[inline]
+    pub fn bottom(&self) -> f32 {
+        self.y + self.height
     }
 
-    pub fn area(&self) -> T {
-        self.width.clone() * self.height.clone()
+    /// Moves the rectangle by a specified vector
+    #[inline]
+    pub fn move_vec(&mut self, vec: Vec2<f32>) {
+        self.x += vec.x;
+        self.y += vec.y;
     }
 
-    /// Calculate the intersection of two rectangles, returning None if the two rectangles do not
-    /// intersect.
-    pub fn intersect(&self, other: &Rect<T>) -> Option<Rect<T>> {
-        if self.right() < other.left() || self.left() > other.right() ||
-                self.bottom() < other.top() || self.top() > other.bottom() {
-            None
+    /// Calculate the intersection area of two rectangles
+    #[inline]
+    pub fn intersect_area(&self, other: &Rect) -> f32 {
+        let x_intersect = partial_min(self.right(), other.right()).unwrap() -
+            partial_max(self.left(), other.left()).unwrap();
+
+        let y_intersect = partial_min(self.bottom(), other.bottom()).unwrap() -
+            partial_max(self.top(), other.top()).unwrap();
+
+        if x_intersect < 0.0 || y_intersect < 0.0 {
+            0.0
         }
         else {
-            let x = max(&self.x, &other.x);
-            let y = max(&self.y, &other.y);
-
-            Some(Rect {
-                x: x.clone(),
-                y: y.clone(),
-                width: min(&self.right(), &other.right()) - x,
-                height: min(&self.bottom(), &other.bottom()) - y,
-            })
+            x_intersect * y_intersect
         }
     }
 }
