@@ -1,4 +1,4 @@
-geometry-rs
+basic2d
 ===========
 
-A simple geometry library for Rust
+A library for simple 2D structures.
