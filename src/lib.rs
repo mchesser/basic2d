@@ -1,4 +1,4 @@
-#![feature(core)]
+#![feature(cmp_partial)]
 
 extern crate interpolate;
 extern crate num;
