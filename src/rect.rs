@@ -1,4 +1,3 @@
-use std::cmp::{partial_min, partial_max};
 use super::Vec2;
 
 /// Rectangle structure
@@ -75,11 +74,8 @@ impl Rect {
     /// Calculate the intersection area of two rectangles
     #[inline]
     pub fn intersect_area(&self, other: &Rect) -> f32 {
-        let x_intersect = partial_min(self.right(), other.right()).unwrap() -
-            partial_max(self.left(), other.left()).unwrap();
-
-        let y_intersect = partial_min(self.bottom(), other.bottom()).unwrap() -
-            partial_max(self.top(), other.top()).unwrap();
+        let x_intersect = self.right().min(other.right()) - self.left().max(other.left());
+        let y_intersect = self.bottom().min(other.bottom()) - self.top().max(other.top());
 
         if x_intersect < 0.0 || y_intersect < 0.0 {
             0.0

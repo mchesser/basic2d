@@ -6,6 +6,5 @@ authors = ["Michael Chesser"]
 [dependencies.interpolate]
 git = "https://github.com/quvarxa/interpolate"
 
-
 [dependencies]
 num = "*"

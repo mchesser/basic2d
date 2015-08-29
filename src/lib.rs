@@ -1,5 +1,3 @@
-#![feature(core)]
-
 extern crate interpolate;
 extern crate num;
 
