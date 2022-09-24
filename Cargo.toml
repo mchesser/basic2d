@@ -2,9 +2,8 @@
 name = "basic2d"
 version = "0.0.2"
 authors = ["Michael Chesser"]
-
-[dependencies.interpolate]
-git = "https://github.com/quvarxa/interpolate"
+edition = "2021"
 
 [dependencies]
-num = "*"
+interpolate = { git = "https://github.com/mchesser/interpolate" }
+num-traits = "0.2.15"

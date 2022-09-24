@@ -6,7 +6,7 @@ pub struct Rect {
     pub x: f32,
     pub y: f32,
     pub width: f32,
-    pub height: f32
+    pub height: f32,
 }
 
 impl Rect {
@@ -37,7 +37,7 @@ impl Rect {
     /// Return the vector to the center of the rectangle
     #[inline]
     pub fn center(&self) -> Vec2<f32> {
-        Vec2::new(self.x + self.width/2.0, self.y + self.height/2.0)
+        Vec2::new(self.x + self.width / 2.0, self.y + self.height / 2.0)
     }
 
     /// Return the x coordinate of the left side of the rectangle
@@ -77,11 +77,6 @@ impl Rect {
         let x_intersect = self.right().min(other.right()) - self.left().max(other.left());
         let y_intersect = self.bottom().min(other.bottom()) - self.top().max(other.top());
 
-        if x_intersect < 0.0 || y_intersect < 0.0 {
-            0.0
-        }
-        else {
-            x_intersect * y_intersect
-        }
+        if x_intersect < 0.0 || y_intersect < 0.0 { 0.0 } else { x_intersect * y_intersect }
     }
 }
